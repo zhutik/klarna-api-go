@@ -2,6 +2,10 @@ language: go
 
 sudo: false
 
+go:
+  - "1.9"
+  - "1.10"
+
 install:
   - source .default.env
   - go get ./...
@@ -15,17 +19,7 @@ stages:
 jobs:
   include:
     - stage: verification
-      go: 1.10
       script: make verification
 
     - stage: test
-      go: 1.10
-      script: make test
-
-    - stage: test
-      go: 1.9
-      script: make test
-
-    - stage: test
-      go: 1.9
       script: make test
