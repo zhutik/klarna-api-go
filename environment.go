@@ -15,3 +15,13 @@ var Production = Environment{
 var Testing = Environment{
 	apiURL: "https://api.playground.klarna.com/",
 }
+
+// TestEnvironment returns test environment configuration.
+func TestEnvironment() Environment {
+	return Testing
+}
+
+// ProductionEnvironment returns production environment configuration.
+func ProductionEnvironment() Environment {
+	return Production
+}

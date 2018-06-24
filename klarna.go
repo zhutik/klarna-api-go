@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // LibraryVersion - current library version
@@ -20,6 +21,52 @@ type Klarna struct {
 	Credentials apiCredentials
 
 	client *http.Client
+}
+
+// New - creates new Klarna instance
+//
+// Description:
+//
+//     - env - Environment for next API calls
+//     - username - API username (UID)
+//     - password - API password
+//     - opts - an optional collection of functions that allow you to tweak configurations.
+func New(env Environment, username, password string, opts ...Option) *Klarna {
+	credentials := makeCredentials(env, username, password)
+	return NewWithCredentials(credentials, opts...)
+}
+
+// NewWithCredentials - create new Klarna instance with pre-configured credentials.
+//
+// Description:
+//
+//     - credentials - configured apiCredentials to use when interacting with Adyen.
+//     - opts - an optional collection of functions that allow you to tweak configurations.
+//
+func NewWithCredentials(creds apiCredentials, opts ...Option) *Klarna {
+	k := Klarna{
+		Credentials: creds,
+		client:      &http.Client{},
+	}
+
+	if opts != nil {
+		for _, opt := range opts {
+			opt(&k)
+		}
+	}
+
+	return &k
+}
+
+// Option allows for custom configuration overrides.
+type Option func(*Klarna)
+
+// WithTimeout allows for a custom timeout to be provided to the underlying
+// HTTP client that's used to communicate with Adyen.
+func WithTimeout(d time.Duration) func(*Klarna) {
+	return func(a *Klarna) {
+		a.client.Timeout = d
+	}
 }
 
 // Payment - returns PaymentGateway

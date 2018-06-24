@@ -14,3 +14,12 @@ type apiCredentials struct {
 	Username string
 	Password string
 }
+
+// makeCredentials create new APICredentials
+func makeCredentials(env Environment, username, password string) apiCredentials {
+	return apiCredentials{
+		Env:      env,
+		Username: username,
+		Password: password,
+	}
+}
