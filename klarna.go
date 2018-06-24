@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 // LibraryVersion - current library version
@@ -19,6 +20,11 @@ type Klarna struct {
 	Credentials apiCredentials
 
 	client *http.Client
+}
+
+// Payment - returns PaymentGateway
+func (k *Klarna) Payment() *PaymentGateway {
+	return &PaymentGateway{k}
 }
 
 // perform POST request to the Klarna API
@@ -55,6 +61,12 @@ func (k *Klarna) execute(method string, url string, requestEntity interface{}) (
 		return nil, err
 	}
 
+	defer func() {
+		if cerr := res.Body.Close(); cerr != nil {
+			err = cerr
+		}
+	}()
+
 	err = k.handleHTTPError(res)
 	if nil != err {
 		return nil, err
@@ -72,4 +84,15 @@ func (k *Klarna) handleHTTPError(res *http.Response) error {
 	}
 
 	return nil
+}
+
+// createURL - creates full URI to perform an API request
+func (k *Klarna) createURL(resource string) string {
+	uri := fmt.Sprintf(
+		"%s%s",
+		strings.TrimRight(k.Credentials.Env.apiURL, "/"),
+		resource,
+	)
+
+	return uri
 }

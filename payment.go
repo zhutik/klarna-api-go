@@ -64,7 +64,7 @@ type CustomerInformation struct {
 	Gender                       string `json:"gender,omitempty"`
 	LastFourSSN                  string `json:"last_four_ssn,omitempty"`
 	NationalIdentificationNumber string `json:"national_identification_number,omitempty"`
-	Type                         string `json"type,omitempty"`
+	Type                         string `json:"type,omitempty"`
 	VatID                        string `json:"vat_id,omitempty"`
 	OrganizationRegistrationID   string `json:"organization_registration_id,omitempty"`
 	OrganizationEntityType       string `json:"organization_entity_type,omitempty"` // https://developers.klarna.com/api/#payments-api__create-a-new-credit-sessioncustomer__organization_entity_type
