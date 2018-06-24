@@ -1,7 +1,6 @@
 package klarna
 
 import (
-	"bytes"
 	"encoding/json"
 )
 
@@ -24,13 +23,8 @@ func (k *PaymentGateway) CreateSession(req *PaymentOrder) (*PaymentOrderResponse
 		return nil, err
 	}
 
-	buf := new(bytes.Buffer)
-	if _, err = buf.ReadFrom(res.Body); err != nil {
-		return nil, err
-	}
-
 	var p PaymentOrderResponse
-	if err := json.Unmarshal(buf.Bytes(), &p); err != nil {
+	if err := json.Unmarshal(res.Body, &p); err != nil {
 		return nil, err
 	}
 

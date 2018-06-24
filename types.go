@@ -26,18 +26,18 @@ type ProductIdentifier struct {
 //
 // Link - https://developers.klarna.com/api/#payments-api__create-a-new-credit-session__order_lines
 type LineItem struct {
-	Type                string            `json:"type,omitempty"`
-	Reference           string            `json:"reference,omitempty"`
-	Name                string            `json:"name"`
-	Quantity            int               `json:"quantity"`
-	QuantityUnit        string            `json:"quantity_unit,omitempty"`
-	UnitPrice           int               `json:"unit_price"`
-	TaxRate             int               `json:"tax_rate"`
-	TotalAmount         int               `json:"total_amount"`
-	TotalDiscountAmount int               `json:"total_discount_amount,omitempty"`
-	TotalTaxAmount      int               `json:"total_tax_amount"`
-	MerchantData        string            `json:"merchant_data,omitempty"`
-	ProductURL          string            `json:"product_url,omitempty"`
-	ImageURL            string            `json:"image_url,omitempty"`
-	ProductIdentifiers  ProductIdentifier `json:"product_identifiers,omitempty"`
+	Type                string             `json:"type,omitempty"`
+	Reference           string             `json:"reference,omitempty"`
+	Name                string             `json:"name"`
+	Quantity            int                `json:"quantity"`
+	QuantityUnit        string             `json:"quantity_unit,omitempty"`
+	UnitPrice           int                `json:"unit_price"`
+	TaxRate             int                `json:"tax_rate"`
+	TotalAmount         int                `json:"total_amount"`
+	TotalDiscountAmount int                `json:"total_discount_amount,omitempty"`
+	TotalTaxAmount      int                `json:"total_tax_amount"`
+	MerchantData        string             `json:"merchant_data,omitempty"`
+	ProductURL          string             `json:"product_url,omitempty"`
+	ImageURL            string             `json:"image_url,omitempty"`
+	ProductIdentifiers  *ProductIdentifier `json:"product_identifiers,omitempty"`
 }

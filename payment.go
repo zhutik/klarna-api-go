@@ -8,7 +8,7 @@ type PaymentOrder struct {
 	PurchaseCountry        string               `json:"purchase_country"`
 	PurchaseCurrency       string               `json:"purchase_currency"`
 	Locale                 string               `json:"locale"`
-	BillingAddress         *Address             `json:"billing_address"`
+	BillingAddress         *Address             `json:"billing_address,omitempty"`
 	ShippingAddress        *Address             `json:"shipping_address,omitempty"`
 	OrderAmount            int                  `json:"order_amount"`
 	OrderTaxAmount         int                  `json:"order_tax_amount"`
@@ -23,7 +23,7 @@ type PaymentOrder struct {
 	CustomPaymentMethodIDS []string             `json:"custom_payment_method_ids,omitempty"`
 	Status                 string               `json:"status,omitempty"` // https://developers.klarna.com/api/#payments-api__create-a-new-credit-session__status
 	ClientToken            string               `json:"client_token,omitempty"`
-	ExpiresAt              ExpireDate           `json:"expires_at,omitempty"`
+	ExpiresAt              *ExpireDate          `json:"expires_at,omitempty"`
 	AcquiringChannel       string               `json:"acquiring_channel,omitempty"`
 }
 
@@ -31,9 +31,9 @@ type PaymentOrder struct {
 //
 // Link - https://developer.klarna.com/api/#payments-api__merchant_session__session_id
 type PaymentOrderResponse struct {
-	SessionID               string                `json:"session_id"`
-	ClientID                string                `json:"client_id"`
-	PaymentMethodCategories PaymentMethodCategory `json:"payment_method_categories,omitempty"`
+	SessionID               string                   `json:"session_id"`
+	ClientID                string                   `json:"client_token"`
+	PaymentMethodCategories []*PaymentMethodCategory `json:"payment_method_categories,omitempty"`
 }
 
 // PaymentMethodCategory - Available payment method categories
