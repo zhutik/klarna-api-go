@@ -40,8 +40,8 @@ func TestNewWithTimeout(t *testing.T) {
 func getInstance(env Environment) *Klarna {
 	instance := New(
 		env,
-		os.Getenv("ADYEN_USERNAME"),
-		os.Getenv("ADYEN_PASSWORD"))
+		os.Getenv("KLARNA_UID"),
+		os.Getenv("KLARNA_PASSWORD"))
 
 	return instance
 }

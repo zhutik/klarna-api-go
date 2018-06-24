@@ -15,7 +15,7 @@ const LibraryVersion = "0.1"
 
 // Klarna - base structure with configuration options
 //
-//        - Credentials instance of API creditials to connect to Adyen API
+//        - Credentials instance of API creditials to connect to Klarna API
 //        - client is HTTP client instance
 type Klarna struct {
 	Credentials apiCredentials
@@ -40,7 +40,7 @@ func New(env Environment, username, password string, opts ...Option) *Klarna {
 //
 // Description:
 //
-//     - credentials - configured apiCredentials to use when interacting with Adyen.
+//     - credentials - configured apiCredentials to use when interacting with Klarna.
 //     - opts - an optional collection of functions that allow you to tweak configurations.
 //
 func NewWithCredentials(creds apiCredentials, opts ...Option) *Klarna {
@@ -62,7 +62,7 @@ func NewWithCredentials(creds apiCredentials, opts ...Option) *Klarna {
 type Option func(*Klarna)
 
 // WithTimeout allows for a custom timeout to be provided to the underlying
-// HTTP client that's used to communicate with Adyen.
+// HTTP client that's used to communicate with Klarna API.
 func WithTimeout(d time.Duration) func(*Klarna) {
 	return func(a *Klarna) {
 		a.client.Timeout = d
