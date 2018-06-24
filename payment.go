@@ -12,7 +12,7 @@ type PaymentOrder struct {
 	ShippingAddress        *Address             `json:"shipping_address,omitempty"`
 	OrderAmount            int                  `json:"order_amount"`
 	OrderTaxAmount         int                  `json:"order_tax_amount"`
-	OrderLines             []*Line              `json:"order_lines"`
+	OrderLines             []*LineItem          `json:"order_lines"`
 	Customer               *CustomerInformation `json:"customer,omitempty"`
 	MerchantURLS           *MerchantURLS        `json:"merchant_urls,omitempty"`
 	MerchantReference1     string               `json:"merchant_reference1,omitempty"`
@@ -25,6 +25,28 @@ type PaymentOrder struct {
 	ClientToken            string               `json:"client_token,omitempty"`
 	ExpiresAt              ExpireDate           `json:"expires_at,omitempty"`
 	AcquiringChannel       string               `json:"acquiring_channel,omitempty"`
+}
+
+// PaymentOrderResponse - Payment session API response
+//
+// Link - https://developer.klarna.com/api/#payments-api__merchant_session__session_id
+type PaymentOrderResponse struct {
+	SessionID               string                `json:"session_id"`
+	ClientID                string                `json:"client_id"`
+	PaymentMethodCategories PaymentMethodCategory `json:"payment_method_categories,omitempty"`
+}
+
+// PaymentMethodCategory - Available payment method categories
+type PaymentMethodCategory struct {
+	Identifier string   `json:"identifier"`
+	Name       string   `json:"name"`
+	AssetURLS  AssetURL `json:"asset_urls"`
+}
+
+// AssetURL - Asset Urls Object
+type AssetURL struct {
+	Descriptive string `json:"descriptive"`
+	Standard    string `json:"standard"`
 }
 
 // MerchantURLS - The merchant urls structure
