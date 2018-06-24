@@ -11,6 +11,10 @@ install:
   - go get ./...
   - go get github.com/golang/lint/golint
   - go get github.com/kisielk/errcheck
+  - go get github.com/joho/godotenv
+  - go get -u golang.org/x/tools/cmd/cover
+  - go get -u github.com/modocache/gover
+  - go get -u github.com/mattn/goveralls
 
 stages:
   - verification
@@ -19,7 +23,20 @@ stages:
 jobs:
   include:
     - stage: verification
+      go: "1.10"
       script: make verification
 
     - stage: test
+      go: "1.10"
+      script:
+        - make test
+        - gover
+        - goveralls -service=travis-ci -coverprofile=gover.coverprofile -repotoken $COVERALLS_TOKEN
+
+    - stage: verification
+      go: "1.9"
+      script: make verification
+
+    - stage: test
+      go: "1.9"
       script: make test
